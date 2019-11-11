@@ -12,7 +12,7 @@ def encode_onehot(labels):
     return labels_onehot
 
 
-def load_data(path="data/cora/", dataset="cora"):
+def load_data(path="data/cora/", dataset="cora", attack_edges=None):
     """Load citation network dataset (cora only for now)"""
     print('Loading {} dataset...'.format(dataset))
 
@@ -26,6 +26,8 @@ def load_data(path="data/cora/", dataset="cora"):
     edges_unordered = np.genfromtxt("{}{}.cites".format(path, dataset), dtype=np.int32)
     edges = np.array(list(map(idx_map.get, edges_unordered.flatten())),
                      dtype=np.int32).reshape(edges_unordered.shape)
+    if callable(attack_edges):
+        edges = attack_edges(edges)
     adj = sp.coo_matrix((np.ones(edges.shape[0]), (edges[:, 0], edges[:, 1])),
                         shape=(labels.shape[0], labels.shape[0]), dtype=np.float32)
 
