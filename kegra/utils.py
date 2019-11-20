@@ -14,7 +14,7 @@ def encode_onehot(labels):
 
 def load_data(path="data/cora/", dataset="cora", attack_edges=None):
     """Load citation network dataset (cora only for now)"""
-    print('Loading {} dataset...'.format(dataset))
+    # print('Loading {} dataset...'.format(dataset))
 
     idx_features_labels = np.genfromtxt("{}{}.content".format(path, dataset), dtype=np.dtype(str))
     features = sp.csr_matrix(idx_features_labels[:, 1:-1], dtype=np.float32)
@@ -34,7 +34,7 @@ def load_data(path="data/cora/", dataset="cora", attack_edges=None):
     # build symmetric adjacency matrix
     adj = adj + adj.T.multiply(adj.T > adj) - adj.multiply(adj.T > adj)
 
-    print('Dataset has {} nodes, {} edges, {} features.'.format(adj.shape[0], edges.shape[0], features.shape[1]))
+    # print('Dataset has {} nodes, {} edges, {} features.'.format(adj.shape[0], edges.shape[0], features.shape[1]))
 
     return features.todense(), adj, labels
 
