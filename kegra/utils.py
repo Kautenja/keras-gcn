@@ -72,7 +72,9 @@ def get_splits(y):
     y_val[idx_val] = y[idx_val]
     y_test[idx_test] = y[idx_test]
     train_mask = sample_mask(idx_train, y.shape[0])
-    return y_train, y_val, y_test, idx_train, idx_val, idx_test, train_mask
+    val_mask = sample_mask(idx_val, y.shape[0])
+    test_mask = sample_mask(idx_test, y.shape[0])
+    return y_train, y_val, y_test, idx_train, idx_val, idx_test, train_mask, val_mask, test_mask
 
 
 def categorical_crossentropy(preds, labels):
